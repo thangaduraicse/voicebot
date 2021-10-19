@@ -10,7 +10,8 @@ module.exports.speak = (event, _, callback) => {
   const pollyParams = {
     OutputFormat: 'mp3',
     Text: payload.text,
-    VoiceId: payload.voice
+    VoiceId: payload.voice,
+    TextContentType: payload.textContentType
   };
 
   // Getting the audio stream for the payload.text
