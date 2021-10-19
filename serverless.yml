@@ -24,6 +24,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
+  profile: logesh-friend
   region: ap-south-1
   role: arn:aws:iam::032622477281:role/voicebot-app-role
 
