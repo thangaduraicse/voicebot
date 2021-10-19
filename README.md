@@ -41,3 +41,23 @@ functions:
 
 
 Endpoint for converting SSML to Voice (MP3): https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/speak [POST]
+
+Example:
+Available polly voices = ["Salli", "Joanna", "Ivy",  "Kendra", "Kimberly", "Matthew", "Justin", "Joey"];
+Sample Request:
+```
+fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/speak', {
+    method: 'POST',
+    body: JSON.stringify({
+        "dialogueHash": "My-first-uniqueid",
+        "text": "<speak>Here are <say-as interpret-as=\"characters\">SSML</say-as> samples. I can pause <break time=\"3s\"/>. I can speak in cardinals. Your number is <say-as interpret-as=\"cardinal\">10</say-as>. Or I can speak in ordinals. You are <say-as interpret-as=\"ordinal\">10</say-as> in line. Or I can even speak in digits. The digits for ten are <say-as interpret-as=\"characters\">10</say-as>. I can also substitute phrases, like the <sub alias=\"World Wide Web Consortium\">W3C</sub>. Finally, I can speak a paragraph with two sentences. <p><s>This is sentence one.</s><s>This is sentence two.</s></p></speak>",
+        "voice": "Joanna"
+    }),
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+})
+.then(res => res.json())
+.then(json => console.log(json))
+.catch(err => console.log(err))
+```
