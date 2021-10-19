@@ -11,7 +11,7 @@ module.exports.speak = (event, _, callback) => {
     OutputFormat: 'mp3',
     Text: payload.text,
     VoiceId: payload.voice,
-    TextContentType: payload.textContentType
+    TextType: payload.textContentType
   };
 
   // Getting the audio stream for the payload.text
