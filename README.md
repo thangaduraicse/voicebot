@@ -41,10 +41,11 @@ functions:
 
 
 Endpoint for converting SSML to Voice (MP3): https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/speak [POST]
+Endpoint for getting the saved mp3: https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getVoiceByKey [GET]
 
 Example:
 Available polly voices = ["Salli", "Joanna", "Ivy",  "Kendra", "Kimberly", "Matthew", "Justin", "Joey"];
-Sample Request:
+Sample Request [POST]:
 ```
 fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/speak', {
     method: 'POST',
@@ -58,6 +59,13 @@ fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/speak', {
         "Content-type": "application/json; charset=UTF-8"
     }
 })
+.then(res => res.json())
+.then(json => console.log(json))
+.catch(err => console.log(err))
+```
+Sample Request [GET]:
+```
+fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getVoiceByKey?dialogueHash=My-first-uniqueid')
 .then(res => res.json())
 .then(json => console.log(json))
 .catch(err => console.log(err))

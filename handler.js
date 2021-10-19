@@ -44,7 +44,6 @@ module.exports.speak = (event, _, callback) => {
 
           // Sending the result back to the user
           const result = {
-            bucket: s3BucketName,
             key: key + '.mp3',
             url: url
           };
@@ -72,4 +71,29 @@ module.exports.speak = (event, _, callback) => {
       });
     })
     .send();
+};
+
+module.exports.getVoiceByKey = (event, _, callback) => {
+  const key = event["queryStringParameters"]['dialogueHash']
+  const getS3params = {
+    Bucket: s3BucketName,
+    Key: key + '.mp3',
+  };
+
+  // Getting a signed URL for the saved mp3 file 
+  const url = s3.getSignedUrl('getObject', getS3params);
+
+  // Sending the result back to the user
+  const result = {
+    key: key + '.mp3',
+    url: url
+  };
+
+  callback(null, {
+    statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin' : '*'
+    },
+    body: JSON.stringify(result)
+  });
 };

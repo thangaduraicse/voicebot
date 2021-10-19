@@ -68,6 +68,13 @@ functions:
           path: speak
           method: post
           cors: true
+  getVoiceByKey:
+    handler: handler.getVoiceByKey
+    events:
+      - http:
+          path: getVoiceByKey
+          method: get
+          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
