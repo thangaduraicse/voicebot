@@ -74,21 +74,29 @@ module.exports.speak = (event, _, callback) => {
 };
 
 module.exports.getVoiceByKey = (event, _, callback) => {
-  const key = event["queryStringParameters"]['dialogueHash']
-  const getS3params = {
-    Bucket: s3BucketName,
-    Key: key + '.mp3',
+  const keys = event["multiValueQueryStringParameters"]['dialogueHash'];
+  const result = {
+    data: []
   };
 
-  // Getting a signed URL for the saved mp3 file 
-  const url = s3.getSignedUrl('getObject', getS3params);
+  if (keys && keys.length) {
+    result.data = keys.map(function(key) {
+      const getS3params = {
+        Bucket: s3BucketName,
+        Key: key + '.mp3',
+      };
+
+      // Getting a signed URL for the saved mp3 file 
+      const url = s3.getSignedUrl('getObject', getS3params);
+
+      return {
+        key: key + '.mp3',
+        url: url
+      }
+    });
+  }
 
   // Sending the result back to the user
-  const result = {
-    key: key + '.mp3',
-    url: url
-  };
-
   callback(null, {
     statusCode: 200,
     headers: {
