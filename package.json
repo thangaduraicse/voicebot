@@ -1,0 +1,25 @@
+{
+  "name": "voicebot",
+  "version": "1.0.0",
+  "description": "Voicebot - SSML to voice converter app",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/thangadurai-nainamalai/voicebot.git"
+  },
+  "keywords": [
+    "lambda"
+  ],
+  "author": "Thangadurai Nainamalai <Thangadurai.Nainamalai@freshworks.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thangadurai-nainamalai/voicebot/issues"
+  },
+  "homepage": "https://github.com/thangadurai-nainamalai/voicebot#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1011.0"
+  }
+}
