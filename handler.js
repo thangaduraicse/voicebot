@@ -44,7 +44,8 @@ module.exports.speak = (event, _, callback) => {
 
           // Sending the result back to the user
           const result = {
-            key: key + '.mp3',
+            filename: key + '.mp3',
+            key: key,
             url: url
           };
 
@@ -90,9 +91,10 @@ module.exports.getVoiceByKey = (event, _, callback) => {
       const url = s3.getSignedUrl('getObject', getS3params);
 
       return {
-        key: key + '.mp3',
+        filename: key + '.mp3',
+        key: key,
         url: url
-      }
+      };
     });
   }
 
