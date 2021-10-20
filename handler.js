@@ -77,27 +77,38 @@ module.exports.speak = (event, _, callback) => {
     .send();
 };
 
-module.exports.getVoiceByKey = (event, _, callback) => {
+module.exports.getVoiceByKey = async (event, _, callback) => {
   const keys = event["multiValueQueryStringParameters"]['dialogueHash'];
   const result = {
     data: {}
   };
 
   if (keys && keys.length) {
-    keys.forEach(function(key) {
-      const getS3params = {
+    for (const key of keys) {
+      const s3Params = {
         Bucket: s3BucketName,
         Key: key + '.mp3',
       };
 
-      // Getting a signed URL for the saved mp3 file 
-      const url = s3.getSignedUrl('getObject', getS3params);
+      try {
+        // Throw error if file not exist
+        await s3.headObject(s3Params).promise();
 
-      result.data[key] = {
-        filename: key + '.mp3',
-        url: url
-      };
-    });
+        // Getting a signed URL for the saved mp3 file 
+        const url = await s3.getSignedUrl('getObject', s3Params);
+
+        result.data[key] = {
+          filename: key + '.mp3',
+          url: url
+        };
+      } catch (err) {
+        result.data[key] = {
+          filename: key + '.mp3',
+          url: null,
+          errorCode: err.code
+        };
+      }
+    }
   }
 
   // Sending the result back to the user
