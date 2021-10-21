@@ -42,6 +42,7 @@ functions:
 
 Endpoint for converting SSML to Voice (MP3): https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/speak [POST]
 Endpoint for getting the saved mp3: https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getVoiceByKey [GET]
+Endpoint for getting the twilio phone numbers: https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getPhoneNumbers [GET]
 
 Example:
 Available polly voices = ["Salli", "Joanna", "Ivy",  "Kendra", "Kimberly", "Matthew", "Justin", "Joey"];

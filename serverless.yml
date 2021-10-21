@@ -79,6 +79,15 @@ functions:
           cors:
             origin: '*'
             headers: '*'
+  getPhoneNumbers:
+    handler: handler.getPhoneNumbers
+    events:
+      - http:
+          path: getPhoneNumbers
+          method: get
+          cors:
+            origin: '*'
+            headers: '*'
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

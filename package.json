@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/thangadurai-nainamalai/voicebot#readme",
   "dependencies": {
-    "aws-sdk": "^2.1011.0"
+    "aws-sdk": "^2.1011.0",
+    "twilio": "^3.70.0"
   }
 }

@@ -1,9 +1,10 @@
 'use strict';
 
+const client = require('twilio')('<ACCOUNT_SID>', '<AUTH_TOKEN>');
 const AWS = require('aws-sdk');
 const polly = new AWS.Polly();
 const s3 = new AWS.S3();
-const s3BucketName = 'my-voicebot-app';  
+const s3BucketName = 'my-voicebot-app';
 
 module.exports.speak = (event, _, callback) => {
   const payload = JSON.parse(event.body);
@@ -78,7 +79,7 @@ module.exports.speak = (event, _, callback) => {
 };
 
 module.exports.getVoiceByKey = async (event, _, callback) => {
-  const keys = event["multiValueQueryStringParameters"]['dialogueHash'];
+  const keys = event['multiValueQueryStringParameters']['dialogueHash'];
   const result = {
     data: {}
   };
@@ -119,4 +120,40 @@ module.exports.getVoiceByKey = async (event, _, callback) => {
     },
     body: JSON.stringify(result)
   });
+};
+
+
+module.exports.getPhoneNumbers = (event, _, callback) => {
+  let region = event['queryStringParameters']['region'] || 'CA';
+  let areaCode = event['queryStringParameters']['areaCode'] || 604;
+  let limit = event['queryStringParameters']['limit'] || 20;
+
+  region = region.toUpperCase();
+  areaCode = Number(areaCode);
+  limit = Number(limit);
+
+  client
+    .availablePhoneNumbers(region)
+    .local.list({
+      areaCode: areaCode,
+      limit: limit
+    })
+    .then((local) => {
+      callback(null, {
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin' : '*'
+        },
+        body: JSON.stringify(local)
+      });
+    })
+    .catch((err) => {
+      callback(null, {
+        statusCode: 500,
+        headers: {
+          'Access-Control-Allow-Origin' : '*'
+        },
+        body: JSON.stringify(err)
+      });
+    });  
 };
