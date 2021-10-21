@@ -71,3 +71,10 @@ fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getVoiceByKey
 .then(json => console.log(json))
 .catch(err => console.log(err))
 ```
+Sample Request [GET]:
+```
+fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getPhoneNumbers?region=CA&areaCode=604&limit=20')
+.then(res => res.json())
+.then(json => console.log(json))
+.catch(err => console.log(err))
+```

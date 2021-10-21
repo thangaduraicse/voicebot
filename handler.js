@@ -124,9 +124,9 @@ module.exports.getVoiceByKey = async (event, _, callback) => {
 
 
 module.exports.getPhoneNumbers = (event, _, callback) => {
-  let region = event['queryStringParameters']['region'] || 'CA';
-  let areaCode = event['queryStringParameters']['areaCode'] || 604;
-  let limit = event['queryStringParameters']['limit'] || 20;
+  let region = event['queryStringParameters']['region'];
+  let areaCode = event['queryStringParameters']['areaCode'];
+  let limit = event['queryStringParameters']['limit'];
 
   region = region.toUpperCase();
   areaCode = Number(areaCode);
