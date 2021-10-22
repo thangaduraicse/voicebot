@@ -124,21 +124,43 @@ module.exports.getVoiceByKey = async (event, _, callback) => {
 
 
 module.exports.getPhoneNumbers = (event, _, callback) => {
-  let region = event['queryStringParameters']['region'];
-  let areaCode = event['queryStringParameters']['areaCode'];
-  let limit = event['queryStringParameters']['limit'];
+  const limit = event['queryStringParameters']['limit'];
+  const countryCode = event['queryStringParameters']['countryCode'];
+  const areaCode = event['queryStringParameters']['areaCode'];
+  
+  const listParams = {
+    limit: Number(limit)
+  };
 
-  region = region.toUpperCase();
-  areaCode = Number(areaCode);
-  limit = Number(limit);
+  if (areaCode) {
+    listParams.areaCode = Number(areaCode);;
+  }
 
   client
-    .availablePhoneNumbers(region)
-    .local.list({
-      areaCode: areaCode,
-      limit: limit
-    })
-    .then((local) => {
+    .availablePhoneNumbers(countryCode)
+    .local
+    .list(listParams)
+    .then(function async(local) {
+      try {
+        const pricing = await client.pricing.v1.phoneNumbers
+          .countries(countryCode)
+          .fetch();
+        const localNumberPrices = pricing.phoneNumberPrices.find(
+          (prices) => prices.number_type === 'local'
+        );
+
+        local = local.map(function(lo) {
+          lo['basePrice'] = localNumberPrices.base_price;
+          lo['country'] = pricing.country;
+          lo['currentPrice'] = localNumberPrices.current_price;
+          lo['priceUnit'] = pricing.priceUnit;
+
+          return lo;
+        });
+      } catch (err) {
+        console.log('Error: ', err);
+      }
+
       callback(null, {
         statusCode: 200,
         headers: {
