@@ -40,15 +40,15 @@ functions:
     - serverless deploy function -f voicebot-dev-speak
 
 
-Endpoint for converting SSML to Voice (MP3): https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/speak [POST]
-Endpoint for getting the saved mp3: https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getVoiceByKey [GET]
-Endpoint for getting the twilio phone numbers: https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getPhoneNumbers [GET]
+Endpoint for converting SSML to Voice (MP3): https://opkmby54sh.execute-api.ap-south-1.amazonaws.com/dev/speak [POST]
+Endpoint for getting the saved mp3: https://opkmby54sh.execute-api.ap-south-1.amazonaws.com/dev/getVoiceByKey [GET]
+Endpoint for getting the twilio phone numbers: https://opkmby54sh.execute-api.ap-south-1.amazonaws.com/dev/getPhoneNumbers [GET]
 
 Example:
 Available polly voices = ["Salli", "Joanna", "Ivy",  "Kendra", "Kimberly", "Matthew", "Justin", "Joey"];
 Sample Request [POST]:
 ```
-fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/speak', {
+fetch('https://opkmby54sh.execute-api.ap-south-1.amazonaws.com/dev/speak', {
     method: 'POST',
     body: JSON.stringify({
         "dialogueHash": "My-first-uniqueid",
@@ -66,14 +66,14 @@ fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/speak', {
 ```
 Sample Request [GET]:
 ```
-fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getVoiceByKey?dialogueHash=My-first-uniqueid')
+fetch('https://opkmby54sh.execute-api.ap-south-1.amazonaws.com/dev/getVoiceByKey?dialogueHash=My-first-uniqueid')
 .then(res => res.json())
 .then(json => console.log(json))
 .catch(err => console.log(err))
 ```
 Sample Request [GET]:
 ```
-fetch('https://nc7dvn9q6l.execute-api.ap-south-1.amazonaws.com/dev/getPhoneNumbers?region=CA&areaCode=604&limit=20')
+fetch('https://opkmby54sh.execute-api.ap-south-1.amazonaws.com/dev/getPhoneNumbers?region=CA&areaCode=604&limit=20')
 .then(res => res.json())
 .then(json => console.log(json))
 .catch(err => console.log(err))
